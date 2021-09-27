@@ -1,19 +1,48 @@
-const myResultInt = function getRandomIntNumber (from, to) {
-  if (from >= 0 && to >= 0 && from !== to) {
-    return Math.floor (Math.random () * (to - from + 1)) + from;
+const getRandomIntNumber = (fromStart, toFinish) => {
+  if (fromStart >= 0) {
+    if (toFinish >= 0) {
+      if (fromStart <= toFinish) {
+        return Math.floor (Math.random () * (toFinish - fromStart + 1)) + fromStart;
+      }
+      else {
+        return null; //Ошибка! Параметр "от" больше параметра "до"
+      }
+    }
+    else {
+      return null; //Ошибка! Параметр "до" отрицательный
+    }
+  }
+  else {
+    return null; //Ошибка! Параметр "от" отрицательный
   }
 };
 
-// eslint-disable-next-line no-unused-vars
-myResultInt (2, 12);
+getRandomIntNumber (2, 12);
 
-const myResultFloat = function getRandomIntInclusive(from, to, signsAfter) {
-  if (from >= 0 && to >= 0 && signsAfter >=0 && from !== to) {
-    from = Math.ceil(from);
-    to = Math.floor(to);
-    const numFloat = Math.random() * (to - from + 1) + from; //Максимум и минимум включаются
-    return numFloat.toFixed(signsAfter);
+const getRandomFloatInclusive = (fromStart, toFinish, signsAfter) => {
+  if (fromStart >= 0) {
+    if (toFinish >= 0) {
+      if (fromStart <= toFinish) {
+        if (signsAfter >=0) {
+          const numFloat = Math.random() * (toFinish - fromStart + Math.pow(10, -1 * signsAfter)) + fromStart; //Максимум и минимум включаются
+          return numFloat.toFixed(signsAfter);
+        }
+        else {
+          return null; //Ошибка! Параметр "Кол-во знаков после запятой" отрицательный
+        }
+      }
+      else {
+        return null; //Ошибка! Параметр "от" больше параметра "до"
+      }
+    }
+    else {
+      return null; //Ошибка! Параметр "до" отрицательный
+    }
+  }
+  else {
+    return null; //Ошибка! Параметр "от" отрицательный
   }
 };
 
-myResultFloat (22, 56, 5);
+getRandomFloatInclusive (0, 1, 5);
+
