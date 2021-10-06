@@ -60,16 +60,16 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomIntNumber(0, elements.length - 1)];
 };
 
+const copyXX = XX.slice();
+
 const createAuthor = () => {
-  const indexCut = getRandomArrayElement(XX);
-  const copyXX = XX.slice();
-  copyXX.splice(+indexCut - 1);
+  const indexCut = getRandomArrayElement(copyXX);
+  copyXX.splice(+indexCut - 1, 1);
+  console.log(copyXX);
   return {
     avatar: 'img/avatars/user' + indexCut  + '.png'
   };
 };
-const author = createAuthor();
-console.log(author);
 
 const createLocationCoords = () => {
   const lat = getRandomFloatInclusive (35.65000, 35.70000, 5);
@@ -79,12 +79,12 @@ const createLocationCoords = () => {
     lng,
   };
 };
+
 const locationCoords = createLocationCoords();
-console.log(locationCoords);
 
 const createOffer = () => {
   const title = getRandomArrayElement (titlesOffers);
-  const address = createLocationCoords ();
+  const address = locationCoords.lat + ', ' + locationCoords.lng;
   const price = getRandomIntNumber (100, 200000);
   const type = getRandomArrayElement (typesRealty);
   const rooms = getRandomIntNumber (1, 10);
@@ -100,7 +100,7 @@ const createOffer = () => {
     const indexCut = getRandomArrayElement(copyFeaturesPoints);
     features.push(indexCut);
     const cutIndex = copyFeaturesPoints.indexOf(indexCut);
-    copyFeaturesPoints.splice(cutIndex);
+    copyFeaturesPoints.splice(cutIndex, 1);
   }
 
   for (let i = 0; i <= getRandomIntNumber (0, 2); i++) {
@@ -121,11 +121,11 @@ const createOffer = () => {
     photos,
   };
 };
-const offer = createOffer();
-console.log(offer);
-
 
 const createRealtyOffer = () => {
+  const author = createAuthor();
+  const offer = createOffer();
+
   return {
     author,
     offer,
@@ -135,7 +135,7 @@ const createRealtyOffer = () => {
 
 
 for (let i = 0; i <= 9; i++) {
-const finish = createRealtyOffer();
-finishOffer.push(finish);
+const finalized = createRealtyOffer();
+finishOffer.push(finalized);
 };
 console.log(finishOffer);
