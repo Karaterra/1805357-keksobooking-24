@@ -45,13 +45,9 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 // };
 
 const copyPicturesNumbers = picturesNumbers.slice();
-const createAuthor = (counter) => {
-  for (let counter1 = 0; counter1 <= COUNTER_LIMIT; counter1++) {
-    return {
-      avatar: `img/avatars/user${copyPicturesNumbers[counter]}.png`,
-    };
-  }
-};
+const createAuthor = (counter) => ({
+  avatar: `img/avatars/user${copyPicturesNumbers[counter]}.png`,
+});
 
 const createLocationCoords = () => {
   const lat = getRandomPositiveFloat (35.65000, 35.70000, 5);
