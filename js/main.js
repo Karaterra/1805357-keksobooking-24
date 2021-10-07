@@ -1,53 +1,23 @@
-const getRandomIntNumber = (fromStart, toFinish) => {
-  if (fromStart >= 0) {
-    if (toFinish >= 0) {
-      if (fromStart <= toFinish) {
-        return Math.floor (Math.random () * (toFinish - fromStart + 1)) + fromStart;
-      }
-      else {
-        return null; //Ошибка! Параметр "от" больше параметра "до"
-      }
-    }
-    else {
-      return null; //Ошибка! Параметр "до" отрицательный
-    }
-  }
-  else {
-    return null; //Ошибка! Параметр "от" отрицательный
-  }
-};
+let digits = 0;
 
-getRandomIntNumber (2, 12);
+function getRandomPositiveFloat (a, b, digits = 1) {
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
+  const result = Math.random() * (upper - lower) + lower;
 
-const getRandomFloatInclusive = (fromStart, toFinish, signsAfter) => {
-  if (fromStart >= 0) {
-    if (toFinish >= 0) {
-      if (fromStart <= toFinish) {
-        if (signsAfter >=0) {
-          const numFloat = Math.random() * (toFinish - fromStart + Math.pow(10, -1 * signsAfter)) + fromStart; //Максимум и минимум включаются
-          return numFloat.toFixed(signsAfter);
-        }
-        else {
-          return null; //Ошибка! Параметр "Кол-во знаков после запятой" отрицательный
-        }
-      }
-      else {
-        return null; //Ошибка! Параметр "от" больше параметра "до"
-      }
-    }
-    else {
-      return null; //Ошибка! Параметр "до" отрицательный
-    }
-  }
-  else {
-    return null; //Ошибка! Параметр "от" отрицательный
-  }
-};
+  return result.toFixed(digits);
+}
 
-getRandomFloatInclusive (0, 1, 5);
+function getRandomPositiveInteger (a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+}
+
 
 //Генерация случайных данных по заданию
-const XX = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
+const picturesNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 const titlesOffers = ['Квартира со всем удобствами', 'Квартира с удобствами во дворе', 'Удачное приобретение', 'Мечта эммигранта'];
 const typesRealty = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkinTimes = ['12:00', '13:00', '14:00'];
@@ -55,40 +25,54 @@ const featuresPoints = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', '
 const photosLinks = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const descriptionVariants = ['Квартира в самом центре города в 3 минутах ходьбы от метро', 'Бунгало с удобствами во дворе в 3 минутах ходьбы от метро', 'Мечта эммигранта для первого времени где-нибудь переночевать'];
 const finishOffer = [];
+const counterLimit = 9;
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomIntNumber(0, elements.length - 1)];
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+
+
+const getRandomArrayElementNoRepeat = (elements) => {
+  const previousValues = [];
+  const copyElements = elements.slice();
+
+  return function () {
+    let indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
+
+    if (previousValues.length >= (copyElements.length)) {
+      return null;
+    }
+    while (previousValues.includes(indexCut)) {
+      indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
+    }
+    previousValues.push(indexCut);
+    return indexCut;
+  };
 };
 
-const copyXX = XX.slice();
+const copyPicturesNumbers = picturesNumbers.slice();
 
 const createAuthor = () => {
-  const indexCut = getRandomArrayElement(copyXX);
-  copyXX.splice(+indexCut - 1, 1);
-  console.log(copyXX);
+  const indexPaste = getRandomArrayElementNoRepeat(copyPicturesNumbers);
   return {
-    avatar: 'img/avatars/user' + indexCut  + '.png'
+    avatar: `img/avatars/user${  indexPaste   }.png`,
   };
 };
 
 const createLocationCoords = () => {
-  const lat = getRandomFloatInclusive (35.65000, 35.70000, 5);
-  const lng = getRandomFloatInclusive (139.70000, 139.80000, 5);
+  const lat = getRandomPositiveFloat (35.65000, 35.70000, digits = 5);
+  const lng = getRandomPositiveFloat (139.70000, 139.80000, digits = 5);
   return {
     lat,
     lng,
   };
 };
 
-const locationCoords = createLocationCoords();
-
-const createOffer = () => {
+const createOffer = (locationCoords) => {
   const title = getRandomArrayElement (titlesOffers);
-  const address = locationCoords.lat + ', ' + locationCoords.lng;
-  const price = getRandomIntNumber (100, 200000);
+  const address = `${locationCoords.lat  }, ${  locationCoords.lng}`;
+  const price = getRandomPositiveInteger (100, 200000);
   const type = getRandomArrayElement (typesRealty);
-  const rooms = getRandomIntNumber (1, 10);
-  const guests = getRandomIntNumber (1, 10);
+  const rooms = getRandomPositiveInteger (1, 10);
+  const guests = getRandomPositiveInteger (1, 10);
   const checkin = getRandomArrayElement (checkinTimes);
   const checkout = getRandomArrayElement (checkinTimes);
   const description = getRandomArrayElement (descriptionVariants);
@@ -96,15 +80,15 @@ const createOffer = () => {
   const photos = [];
 
   const copyFeaturesPoints = featuresPoints.slice();
-  for (let i = 0; i <= getRandomIntNumber (0, 5); i++) {
-    const indexCut = getRandomArrayElement(copyFeaturesPoints);
-    features.push(indexCut);
-    const cutIndex = copyFeaturesPoints.indexOf(indexCut);
-    copyFeaturesPoints.splice(cutIndex, 1);
+  for (let counter = 0; counter <= getRandomPositiveInteger (0, 5); counter++) {
+    const indexElementCut = getRandomArrayElement(copyFeaturesPoints);
+    features.push(indexElementCut);
+    const copyIndexElementCut = copyFeaturesPoints.indexOf(indexElementCut);
+    copyFeaturesPoints.splice(copyIndexElementCut, 1);
   }
 
-  for (let i = 0; i <= getRandomIntNumber (0, 2); i++) {
-    photos.push(photosLinks[i]);
+  for (let counter = 0; counter <= getRandomPositiveInteger (0, 2); counter++) {
+    photos.push(photosLinks[counter]);
   }
 
   return {
@@ -124,7 +108,8 @@ const createOffer = () => {
 
 const createRealtyOffer = () => {
   const author = createAuthor();
-  const offer = createOffer();
+  const offer = createOffer(locationCoords);
+  const locationCoords = createLocationCoords();
 
   return {
     author,
@@ -134,8 +119,7 @@ const createRealtyOffer = () => {
 };
 
 
-for (let i = 0; i <= 9; i++) {
-const finalized = createRealtyOffer();
-finishOffer.push(finalized);
-};
-console.log(finishOffer);
+for (let counter = 0; counter <= counterLimit; counter++) {
+  const finalizedOffer = createRealtyOffer();
+  finishOffer.push(finalizedOffer);
+}
