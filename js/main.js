@@ -45,8 +45,8 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 // };
 
 const copyPicturesNumbers = picturesNumbers.slice();
-const createAuthor = () => {
-  for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
+const createAuthor = (counter) => {
+  for (let counter1 = 0; counter1 <= COUNTER_LIMIT; counter1++) {
     return {
       avatar: `img/avatars/user${copyPicturesNumbers[counter]}.png`,
     };
@@ -102,8 +102,8 @@ const createOffer = (locationCoords) => {
   };
 };
 
-const createRealtyOffer = () => {
-  const author = createAuthor();
+const createRealtyOffer = (counter) => {
+  const author = createAuthor(counter);
   const locationCoords = createLocationCoords();
   const offer = createOffer(locationCoords);
 
@@ -116,6 +116,6 @@ const createRealtyOffer = () => {
 
 
 for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
-  const finalizedOffer = createRealtyOffer();
+  const finalizedOffer = createRealtyOffer(counter);
   finishOffers.push(finalizedOffer);
 }
