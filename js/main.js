@@ -1,3 +1,14 @@
+//Генерация случайных данных по заданию
+const picturesNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
+const titlesOffers = ['Квартира со всем удобствами', 'Квартира с удобствами во дворе', 'Удачное приобретение', 'Мечта эммигранта'];
+const typesRealty = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const checkinTimes = ['12:00', '13:00', '14:00'];
+const featuresPoints = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const photosLinks = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const descriptionVariants = ['Квартира в самом центре города в 3 минутах ходьбы от метро', 'Бунгало с удобствами во дворе в 3 минутах ходьбы от метро', 'Мечта эммигранта для первого времени где-нибудь переночевать'];
+const finishOffers = [];
+const COUNTER_LIMIT = 9;
+
 function getRandomPositiveFloat (a, b, digits = 1) {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
@@ -13,17 +24,6 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-
-//Генерация случайных данных по заданию
-const picturesNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
-const titlesOffers = ['Квартира со всем удобствами', 'Квартира с удобствами во дворе', 'Удачное приобретение', 'Мечта эммигранта'];
-const typesRealty = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const checkinTimes = ['12:00', '13:00', '14:00'];
-const featuresPoints = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const photosLinks = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const descriptionVariants = ['Квартира в самом центре города в 3 минутах ходьбы от метро', 'Бунгало с удобствами во дворе в 3 минутах ходьбы от метро', 'Мечта эммигранта для первого времени где-нибудь переночевать'];
-const finishOffer = [];
-const counterLimit = 9;
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
@@ -116,7 +116,7 @@ const createRealtyOffer = () => {
 };
 
 
-for (let counter = 0; counter <= counterLimit; counter++) {
+for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
   const finalizedOffer = createRealtyOffer();
-  finishOffer.push(finalizedOffer);
+  finishOffers.push(finalizedOffer);
 }
