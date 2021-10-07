@@ -28,30 +28,29 @@ function getRandomPositiveInteger (a, b) {
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 
-const getRandomArrayElementNoRepeat = (elements) => {
-  const previousValues = [];
-  const copyElements = elements.slice();
+// const getRandomArrayElementNoRepeat = (elements) => {
+//   const previousValues = [];
+//   const copyElements = elements.slice();
 
-  return function () {
-    let indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
+//   let indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
 
-    if (previousValues.length >= (copyElements.length)) {
-      return null;
-    }
-    while (previousValues.includes(indexCut)) {
-      indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
-    }
-    previousValues.push(indexCut);
-    return indexCut;
-  };
-};
+//   if (previousValues.length >= (copyElements.length)) {
+//     return null;
+//   }
+//   while (previousValues.includes(indexCut)) {
+//     indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
+//   }
+//   previousValues.push(indexCut);
+//   return indexCut;
+// };
 
 const copyPicturesNumbers = picturesNumbers.slice();
 const createAuthor = () => {
-  const indexPaste = getRandomArrayElementNoRepeat(copyPicturesNumbers);
-  return {
-    avatar: `img/avatars/user${indexPaste}.png`,
-  };
+  for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
+    return {
+      avatar: `img/avatars/user${copyPicturesNumbers[counter]}.png`,
+    };
+  }
 };
 
 const createLocationCoords = () => {
