@@ -1,5 +1,3 @@
-let digits = 0;
-
 function getRandomPositiveFloat (a, b, digits = 1) {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
@@ -49,17 +47,16 @@ const getRandomArrayElementNoRepeat = (elements) => {
 };
 
 const copyPicturesNumbers = picturesNumbers.slice();
-
 const createAuthor = () => {
   const indexPaste = getRandomArrayElementNoRepeat(copyPicturesNumbers);
   return {
-    avatar: `img/avatars/user${  indexPaste   }.png`,
+    avatar: `img/avatars/user${indexPaste}.png`,
   };
 };
 
 const createLocationCoords = () => {
-  const lat = getRandomPositiveFloat (35.65000, 35.70000, digits = 5);
-  const lng = getRandomPositiveFloat (139.70000, 139.80000, digits = 5);
+  const lat = getRandomPositiveFloat (35.65000, 35.70000, 5);
+  const lng = getRandomPositiveFloat (139.70000, 139.80000, 5);
   return {
     lat,
     lng,
@@ -108,8 +105,8 @@ const createOffer = (locationCoords) => {
 
 const createRealtyOffer = () => {
   const author = createAuthor();
-  const offer = createOffer(locationCoords);
   const locationCoords = createLocationCoords();
+  const offer = createOffer(locationCoords);
 
   return {
     author,
