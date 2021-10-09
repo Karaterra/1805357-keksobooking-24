@@ -1,3 +1,7 @@
+import {getRandomPositiveFloat} from './utils/get-random-positive-float.js';
+import {getRandomPositiveInteger} from './utils/get-random-positive-integer.js';
+
+
 //Генерация случайных данных по заданию
 const picturesNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
 const titlesOffers = ['Квартира со всем удобствами', 'Квартира с удобствами во дворе', 'Удачное приобретение', 'Мечта эммигранта'];
@@ -9,40 +13,7 @@ const descriptionVariants = ['Квартира в самом центре гор
 const finishOffers = [];
 const COUNTER_LIMIT = 9;
 
-function getRandomPositiveFloat (a, b, digits = 1) {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-
-  return result.toFixed(digits);
-}
-
-function getRandomPositiveInteger (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
-
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
-
-// const getRandomArrayElementNoRepeat = (elements) => {
-//   const previousValues = [];
-//   const copyElements = elements.slice();
-
-//   let indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
-
-//   if (previousValues.length >= (copyElements.length)) {
-//     return null;
-//   }
-//   while (previousValues.includes(indexCut)) {
-//     indexCut = copyElements[getRandomPositiveInteger(0, copyElements.length - 1)];
-//   }
-//   previousValues.push(indexCut);
-//   return indexCut;
-// };
 
 const copyPicturesNumbers = picturesNumbers.slice();
 const createAuthor = (counter) => ({
