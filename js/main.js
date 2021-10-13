@@ -1,2 +1,2 @@
 // eslint-disable-next-line no-unused-vars
-import {finishOffers} from './data/get-mock-data.js';
+import {similarListElement} from './utils/get-markup-similar-elements.js';
