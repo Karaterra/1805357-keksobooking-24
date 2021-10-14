@@ -12,13 +12,69 @@ similarCards.forEach(({author, offer}) => {
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-  cardElement.querySelector('.popup__type').textContent = offer.type;
+
+  let typeOffer = '';
+  switch (offer.type) {
+    case 'flat':
+      typeOffer = 'Квартира';
+      break;
+    case 'bungalow':
+      typeOffer = 'Бунгало';
+      break;
+    case 'house':
+      typeOffer = 'Дом';
+      break;
+    case 'palace':
+      typeOffer = 'Дворец';
+      break;
+    case 'hotel':
+      typeOffer = 'Отель';
+      break;
+    default:
+      typeOffer = 'Не указано';
+  }
+
+  cardElement.querySelector('.popup__type').textContent = typeOffer;
   cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin} выезд до ${offer.checkout}`;
-  cardElement.querySelector('.popup__features').textContent = offer.features;
+
+  const cardFeatures = offer.features;
+
+  const cardContainer = document.querySelector('.popup__features');
+  const cardListFragment = document.createDocumentFragment();
+
+  cardFeatures.forEach((cardFeature) => {
+    const cardListItem = cardContainer.querySelector(`.popup__feature--${cardFeature}`);
+
+    if (cardListItem) {
+      cardListFragment.append(cardListItem);
+    }
+  });
+
+  cardContainer.innerHTML = '';
+  cardContainer.append(cardListFragment);
+
   cardElement.querySelector('.popup__description').textContent = offer.description;
-  cardElement.querySelector('.popup__photos').textContent = offer.photos;
-  cardElement.querySelector('.popup__avatar').textContent = author.avatar;
+
+  const cardPhotos = offer.photos;
+
+  const cardContainerPhotos = document.querySelector('.popup__photos');
+  const cardListFragmentPhotos = document.createDocumentFragment();
+
+  cardPhotos.forEach((cardPhoto) => {
+    const cardListItemPhoto = cardContainerPhotos.querySelector('.popup__photo');
+
+    if (cardListItemPhoto) {
+      cardListItemPhoto.src = cardPhoto;
+      cardListFragmentPhotos.append(cardListItemPhoto);
+    }
+  });
+
+  cardContainerPhotos.innerHTML = '';
+  cardContainerPhotos.append(cardListFragmentPhotos);
+
+
+  cardElement.querySelector('.popup__avatar').src = author.avatar;
   similarListFragment.appendChild(cardElement);
 });
 
