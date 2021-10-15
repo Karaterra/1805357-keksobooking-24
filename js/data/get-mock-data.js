@@ -87,4 +87,4 @@ for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
   finishOffers.push(finalizedOffer);
 }
 
-export {createRealtyOffer};
+export {finishOffers};

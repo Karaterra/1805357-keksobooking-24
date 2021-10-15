@@ -1,9 +1,9 @@
-import {createRealtyOffer} from '../data/get-mock-data.js';
+import {finishOffers} from '../data/get-mock-data.js';
 
-const similarListElement = [];
+const similarListElement = document.querySelector('#map-canvas');
 const similarCardsTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const similarCards = createRealtyOffer();
+const similarCards = finishOffers;
 
 const similarListFragment = document.createDocumentFragment();
 
@@ -40,7 +40,7 @@ similarCards.forEach(({author, offer}) => {
 
   const cardFeatures = offer.features;
 
-  const cardContainer = document.querySelector('.popup__features');
+  const cardContainer = cardElement.querySelector('.popup__features');
   const cardListFragment = document.createDocumentFragment();
 
   cardFeatures.forEach((cardFeature) => {
@@ -58,7 +58,7 @@ similarCards.forEach(({author, offer}) => {
 
   const cardPhotos = offer.photos;
 
-  const cardContainerPhotos = document.querySelector('.popup__photos');
+  const cardContainerPhotos = cardElement.querySelector('.popup__photos');
   const cardListFragmentPhotos = document.createDocumentFragment();
 
   cardPhotos.forEach((cardPhoto) => {
