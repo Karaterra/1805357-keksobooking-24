@@ -1,7 +1,14 @@
-import {finishOffers} from '../data/get-mock-data.js';
+import {createRealtyOffer} from '../data/get-mock-data.js';
+const finishOffers = [];
+const COUNTER_LIMIT = 9;
 
-const similarListElement = document.querySelector('#map-canvas');
+const similarListElement = document.querySelector('#map-canvas2');
 const similarCardsTemplate = document.querySelector('#card').content.querySelector('.popup');
+
+for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
+  const finalizedOffer = createRealtyOffer(counter);
+  finishOffers.push(finalizedOffer);
+}
 
 const similarCards = finishOffers;
 
@@ -9,34 +16,22 @@ const similarListFragment = document.createDocumentFragment();
 
 similarCards.forEach(({author, offer}) => {
   const cardElement = similarCardsTemplate.cloneNode(true);
-  cardElement.querySelector('.popup__title').textContent = offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
 
-  let typeOffer = '';
-  switch (offer.type) {
-    case 'flat':
-      typeOffer = 'Квартира';
-      break;
-    case 'bungalow':
-      typeOffer = 'Бунгало';
-      break;
-    case 'house':
-      typeOffer = 'Дом';
-      break;
-    case 'palace':
-      typeOffer = 'Дворец';
-      break;
-    case 'hotel':
-      typeOffer = 'Отель';
-      break;
-    default:
-      typeOffer = 'Не указано';
-  }
+  !offer.title ? cardElement.querySelector('.popup__title').classList.add('visually-hidden') : cardElement.querySelector('.popup__title').textContent = offer.title;
+  !offer.address ? cardElement.querySelector('.popup__text--address').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--address').textContent = offer.address;
+  !offer.price ? cardElement.querySelector('.popup__text--price').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
 
-  cardElement.querySelector('.popup__type').textContent = typeOffer;
-  cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
-  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin} выезд до ${offer.checkout}`;
+  const typeOffer = {
+    flat: 'Квартира',
+    bungalow: 'Бунгало',
+    house: 'Дом',
+    palace: 'Дворец',
+    hotel: 'Отель',
+  };
+
+  !offer.type ? cardElement.querySelector('.popup__type').classList.add('visually-hidden') : cardElement.querySelector('.popup__type').textContent = typeOffer[offer.type];
+  !offer.rooms || !offer.guests ? cardElement.querySelector('.popup__text--capacity').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
+  !offer.checkin || !offer.checkout ? cardElement.querySelector('.popup__text--time').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin} выезд до ${offer.checkout}`;
 
   const cardFeatures = offer.features;
 
@@ -54,27 +49,28 @@ similarCards.forEach(({author, offer}) => {
   cardContainer.innerHTML = '';
   cardContainer.append(cardListFragment);
 
-  cardElement.querySelector('.popup__description').textContent = offer.description;
+  !offer.description ? cardElement.querySelector('.popup__description').classList.add('visually-hidden') : cardElement.querySelector('.popup__description').textContent = offer.description;
 
-  const cardPhotos = offer.photos;
+  const cardPhotos = offer.photos.slice();
 
   const cardContainerPhotos = cardElement.querySelector('.popup__photos');
+
   const cardListFragmentPhotos = document.createDocumentFragment();
 
-  cardPhotos.forEach((cardPhoto) => {
-    const cardListItemPhoto = cardContainerPhotos.querySelector('.popup__photo');
+  const cardListItemPhoto = cardContainerPhotos.querySelector('.popup__photo');
 
-    if (cardListItemPhoto) {
-      cardListItemPhoto.src = cardPhoto;
+  for (let counter = 0; counter <= cardPhotos.lenght - 1; counter++) {
+
+    if (cardPhotos[counter]) {
+      cardListItemPhoto.src = cardPhotos[counter];
       cardListFragmentPhotos.append(cardListItemPhoto);
     }
-  });
+  }
 
   cardContainerPhotos.innerHTML = '';
   cardContainerPhotos.append(cardListFragmentPhotos);
 
-
-  cardElement.querySelector('.popup__avatar').src = author.avatar;
+  !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
   similarListFragment.appendChild(cardElement);
 });
 

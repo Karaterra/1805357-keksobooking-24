@@ -16,7 +16,10 @@
     "eslint-config-htmlacademy": "4.1.0"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "chrome": "^0.1.0",
+    "set-default-browser": "^1.1.2"
+  },
   "scripts": {
     "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
     "test": "eslint js/"
