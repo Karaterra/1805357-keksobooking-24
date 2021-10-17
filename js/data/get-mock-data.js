@@ -10,8 +10,6 @@ const checkinTimes = ['12:00', '13:00', '14:00'];
 const featuresPoints = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const photosLinks = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const descriptionVariants = ['Квартира в самом центре города в 3 минутах ходьбы от метро', 'Бунгало с удобствами во дворе в 3 минутах ходьбы от метро', 'Мечта эммигранта для первого времени где-нибудь переночевать'];
-const finishOffers = [];
-const COUNTER_LIMIT = 9;
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
@@ -80,11 +78,5 @@ const createRealtyOffer = (counter) => {
     locationCoords,
   };
 };
-
-
-for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
-  const finalizedOffer = createRealtyOffer(counter);
-  finishOffers.push(finalizedOffer);
-}
 
 export {createRealtyOffer};

@@ -1,16 +1,18 @@
 import {createRealtyOffer} from '../data/get-mock-data.js';
-const finishOffers = [];
-const COUNTER_LIMIT = 9;
 
-const similarListElement = document.querySelector('#map-canvas2');
+const typesOffer = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+const similarCards = [];
+
+const similarListElement = document.querySelector('#map-canvas');
 const similarCardsTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-for (let counter = 0; counter <= COUNTER_LIMIT; counter++) {
-  const finalizedOffer = createRealtyOffer(counter);
-  finishOffers.push(finalizedOffer);
-}
-
-const similarCards = finishOffers;
+similarCards.push(createRealtyOffer(3));
 
 const similarListFragment = document.createDocumentFragment();
 
@@ -21,15 +23,7 @@ similarCards.forEach(({author, offer}) => {
   !offer.address ? cardElement.querySelector('.popup__text--address').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--address').textContent = offer.address;
   !offer.price ? cardElement.querySelector('.popup__text--price').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
 
-  const typeOffer = {
-    flat: 'Квартира',
-    bungalow: 'Бунгало',
-    house: 'Дом',
-    palace: 'Дворец',
-    hotel: 'Отель',
-  };
-
-  !offer.type ? cardElement.querySelector('.popup__type').classList.add('visually-hidden') : cardElement.querySelector('.popup__type').textContent = typeOffer[offer.type];
+  !offer.type ? cardElement.querySelector('.popup__type').classList.add('visually-hidden') : cardElement.querySelector('.popup__type').textContent = typesOffer[offer.type];
   !offer.rooms || !offer.guests ? cardElement.querySelector('.popup__text--capacity').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   !offer.checkin || !offer.checkout ? cardElement.querySelector('.popup__text--time').classList.add('visually-hidden') : cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin} выезд до ${offer.checkout}`;
 
@@ -72,8 +66,8 @@ similarCards.forEach(({author, offer}) => {
 
   !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
   similarListFragment.appendChild(cardElement);
+  similarListElement.appendChild(similarListFragment);
 });
 
-similarListElement.appendChild(similarListFragment);
 
 export {similarListElement};
