@@ -1,4 +1,6 @@
-import {createRealtyOffer, COUNTER_LIMIT} from '../data/get-mock-data.js';
+import {createSimilarOffers} from '../data/get-mock-data.js';
+
+const MAX_OFFERS_QUANTITY = 1;
 
 const typesOffer = {
   flat: 'Квартира',
@@ -8,15 +10,14 @@ const typesOffer = {
   hotel: 'Отель',
 };
 
-const similarCards =[];
-similarCards.push(createRealtyOffer(COUNTER_LIMIT));
+const similarCards = createSimilarOffers(MAX_OFFERS_QUANTITY);
 
 const similarListElement = document.querySelector('#map-canvas');
 const similarCardsTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const similarListFragment = document.createDocumentFragment();
 
-similarCards.forEach(({author, offer}) => {
+const getMarkupSimilarElement = ({author, offer}) => {
   const cardElement = similarCardsTemplate.cloneNode(true);
 
   !offer.title ? cardElement.querySelector('.popup__title').classList.add('visually-hidden') : cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -63,10 +64,16 @@ similarCards.forEach(({author, offer}) => {
   cardContainerPhotos.append(cardListFragmentPhotos);
 
   !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
+
   similarListFragment.appendChild(cardElement);
 
   return similarListElement.appendChild(similarListFragment);
+
+};
+const similarCardsList = [];
+similarCards.forEach((getMarkupSimilarElement) => {
+  similarCardsList.push(similarListElement);
 });
 
 
-export {similarListElement};
+export {similarCardsList};
