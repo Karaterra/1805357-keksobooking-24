@@ -1,4 +1,4 @@
-import {createRealtyOffer} from '../data/get-mock-data.js';
+import {createRealtyOffer, COUNTER_LIMIT} from '../data/get-mock-data.js';
 
 const typesOffer = {
   flat: 'Квартира',
@@ -7,12 +7,12 @@ const typesOffer = {
   palace: 'Дворец',
   hotel: 'Отель',
 };
-const similarCards = [];
+
+const similarCards =[];
+similarCards.push(createRealtyOffer(COUNTER_LIMIT));
 
 const similarListElement = document.querySelector('#map-canvas');
 const similarCardsTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-similarCards.push(createRealtyOffer(3));
 
 const similarListFragment = document.createDocumentFragment();
 
@@ -53,12 +53,10 @@ similarCards.forEach(({author, offer}) => {
 
   const cardListItemPhoto = cardContainerPhotos.querySelector('.popup__photo');
 
-  for (let counter = 0; counter <= cardPhotos.lenght - 1; counter++) {
-
-    if (cardPhotos[counter]) {
-      cardListItemPhoto.src = cardPhotos[counter];
-      cardListFragmentPhotos.append(cardListItemPhoto);
-    }
+  for (let counter = 0; counter < cardPhotos.length; counter++) {
+    const currentOffer = cardListItemPhoto.cloneNode(true);
+    currentOffer.src = cardPhotos[counter];
+    cardListFragmentPhotos.append(currentOffer);
   }
 
   cardContainerPhotos.innerHTML = '';
@@ -66,7 +64,8 @@ similarCards.forEach(({author, offer}) => {
 
   !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
   similarListFragment.appendChild(cardElement);
-  similarListElement.appendChild(similarListFragment);
+
+  return similarListElement.appendChild(similarListFragment);
 });
 
 
