@@ -65,15 +65,17 @@ const getMarkupSimilarElement = ({author, offer}) => {
 
   !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
 
-  similarListFragment.appendChild(cardElement);
-
-  return similarListElement.appendChild(similarListFragment);
+  return cardElement;
 
 };
 const similarCardsList = [];
-similarCards.forEach((getMarkupSimilarElement) => {
+similarCards.forEach((cardElement) => {
+  similarListFragment.appendChild(cardElement);
+  similarListElement.appendChild(similarListFragment);
   similarCardsList.push(similarListElement);
 });
 
 
-export {similarCardsList};
+export {getMarkupSimilarElement, similarCardsList};
+
+
