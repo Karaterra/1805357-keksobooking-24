@@ -72,8 +72,8 @@ const getMarkupSimilarElement = ({offer, author}) => {
 };
 const similarCardsArray = [];
 similarCards.forEach((similarCard) => {
-  const bleo = getMarkupSimilarElement(similarCard);
-  similarCardsArray.push(bleo);
+  const outputCard = getMarkupSimilarElement(similarCard);
+  similarCardsArray.push(outputCard);
 });
 
 export {getMarkupSimilarElement, similarCardsArray};
