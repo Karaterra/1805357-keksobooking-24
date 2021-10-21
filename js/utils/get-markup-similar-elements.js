@@ -17,7 +17,7 @@ const similarCardsTemplate = document.querySelector('#card').content.querySelect
 
 const similarListFragment = document.createDocumentFragment();
 
-const getMarkupSimilarElement = ({author, offer}) => {
+const getMarkupSimilarElement = ({offer, author}) => {
   const cardElement = similarCardsTemplate.cloneNode(true);
 
   !offer.title ? cardElement.querySelector('.popup__title').classList.add('visually-hidden') : cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -64,18 +64,18 @@ const getMarkupSimilarElement = ({author, offer}) => {
   cardContainerPhotos.append(cardListFragmentPhotos);
 
   !author.avatar ? cardElement.querySelector('.popup__avatar').classList.add('visually-hidden') : cardElement.querySelector('.popup__avatar').src = author.avatar;
-
-  return cardElement;
-
-};
-const similarCardsList = [];
-similarCards.forEach((cardElement) => {
   similarListFragment.appendChild(cardElement);
   similarListElement.appendChild(similarListFragment);
-  similarCardsList.push(similarListElement);
+
+  return similarListElement;
+
+};
+const similarCardsArray = [];
+similarCards.forEach((similarCard) => {
+  const bleo = getMarkupSimilarElement(similarCard);
+  similarCardsArray.push(bleo);
 });
 
-
-export {getMarkupSimilarElement, similarCardsList};
+export {getMarkupSimilarElement, similarCardsArray};
 
 
