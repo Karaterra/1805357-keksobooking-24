@@ -1,5 +1,7 @@
 import {createSimilarOffers} from './data/get-mock-data.js';
 import {getSimilarOfferElement} from './utils/get-similar-offer-elements.js';
+import {desactivateForm} from './form/desactivate-form.js';
+import {activateForm} from './form/activate-form.js';
 
 const MAX_OFFERS_QUANTITY = 1;
 
@@ -14,3 +16,13 @@ similarCards.forEach((similarCard) => {
 });
 
 similarListElement.appendChild(similarListFragment);
+
+const intoForm = document.querySelector('.ad-form');
+const intoMapFilter = document.querySelector('.map__filters');
+document.addEventListener('DOMContentLoaded', () => {
+  desactivateForm(intoForm, intoMapFilter);
+
+});
+document.addEventListener('click', () => {
+  activateForm(intoForm, intoMapFilter);
+});
