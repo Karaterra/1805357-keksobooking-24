@@ -1,13 +1,13 @@
-const activateFormAndFilter = (formFields, filterFields) => {
+const activateFormAndFilter = (formField, filterField) => {
 
-  formFields.classList.remove('ad-form--disabled');
-  const formFieldsets = formFields.querySelectorAll('fieldset');
+  formField.classList.remove('ad-form--disabled');
+  const formFieldsets = formField.querySelectorAll('fieldset');
   for (const formFieldset of formFieldsets) {
     formFieldset.removeAttribute('disabled');
   }
-  filterFields.classList.remove('map__filters--disabled');
-  const filterFieldsets = filterFields.querySelectorAll('fieldset');
-  const filterSelects = filterFields.querySelectorAll('select');
+  filterField.classList.remove('map__filters--disabled');
+  const filterFieldsets = filterField.querySelectorAll('fieldset');
+  const filterSelects = filterField.querySelectorAll('select');
   for (const filterSelect of filterSelects) {
     filterSelect.removeAttribute('disabled');
   }
