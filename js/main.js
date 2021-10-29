@@ -1,8 +1,7 @@
 import {createSimilarOffers} from './data/get-mock-data.js';
 import {getSimilarOfferElement} from './utils/get-similar-offer-elements.js';
-import {deactivateFormAndFilter} from './form/deactivate-form-and-filter.js';
-import {activateFormAndFilter} from './form/activate-form-and-filter.js';
-import {changeValueTypeToPrice, changeValueRoomsToGuests} from './form/form.js';
+import {setNonActiveMode} from './form/set-non-active-mode.js';
+import {setActiveMode} from './form/set-active-mode.js';
 
 const MAX_OFFERS_QUANTITY = 1;
 
@@ -18,15 +17,13 @@ similarCards.forEach((similarCard) => {
 
 similarListElement.appendChild(similarListFragment);
 
-const formField = document.querySelector('.ad-form');
-const filterField = document.querySelector('.map__filters');
+const adForm = document.querySelector('.ad-form');
+const filterPanel = document.querySelector('.map__filters');
 document.addEventListener('DOMContentLoaded', () => {
-  deactivateFormAndFilter(formField, filterField);
+  setNonActiveMode(adForm, filterPanel);
 
 });
 document.addEventListener('click', () => {
-  activateFormAndFilter(formField, filterField);
+  setActiveMode(adForm, filterPanel);
 });
 
-changeValueTypeToPrice();
-changeValueRoomsToGuests();
