@@ -19,11 +19,14 @@ similarListElement.appendChild(similarListFragment);
 
 const adForm = document.querySelector('.ad-form');
 const filterPanel = document.querySelector('.map__filters');
+const formFieldsets = adForm.querySelectorAll('fieldset');
+const filterFieldsets = filterPanel.querySelectorAll('fieldset');
+const filterSelects = filterPanel.querySelectorAll('select');
 document.addEventListener('DOMContentLoaded', () => {
-  setNonActiveMode(adForm, filterPanel);
+  setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 
 });
 document.addEventListener('click', () => {
-  setActiveMode(adForm, filterPanel);
+  setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 });
 
