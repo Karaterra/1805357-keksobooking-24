@@ -85,8 +85,13 @@ const validateForm = () => {
   //   onOfferRoomNumber.reportValidity();
   // });
 
+  const resetForm = document.querySelector('.ad-form__reset');
+
+  resetForm.addEventListener('click', () => {
+    onOfferCost.setAttribute('placeholder', 'от 1000');
+
+  });
+
 };
 
 export {validateForm};
-
-
