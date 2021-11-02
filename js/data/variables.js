@@ -1,11 +1,6 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
-const offerTitle = document.getElementById('title');
-
-const offerType = document.getElementById('type');
-const offerCost = document.getElementById('price');
-
 const types = [
   {
     type: 'bungalow',
@@ -60,7 +55,4 @@ const capacities = [
   },
 ];
 
-const offerRoomNumber = document.getElementById('room_number');
-const guestQuantity = document.getElementById('capacity');
-
-export {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, offerTitle, offerType, offerCost, types, capacities, offerRoomNumber, guestQuantity};
+export {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities};
