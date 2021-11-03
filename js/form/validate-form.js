@@ -1,94 +1,79 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
 
+
 const validateForm = () => {
+  const offerTitle = document.getElementById('title');
+  const offerType = document.getElementById('type');
+  const offerCost = document.getElementById('price');
+  const offerRoomNumber = document.getElementById('room_number');
+  const guestQuantity = document.getElementById('capacity');
 
-  const onOfferTitle = document.getElementById('title');
-
-  const onOfferType = document.getElementById('type');
-  const onOfferCost = document.getElementById('price');
-
-  const onOfferRoomNumber = document.getElementById('room_number');
-  const onGuestQuantity = document.getElementById('capacity');
-
-  onOfferTitle.addEventListener('input', () => {
-    const valueLength = onOfferTitle.value.length;
+  offerTitle.addEventListener('input', () => {
+    const valueLength = offerTitle.value.length;
 
     if (valueLength < MIN_TITLE_LENGTH) {
-      onOfferTitle.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
+      offerTitle.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
     } else if (valueLength > MAX_TITLE_LENGTH) {
-      onOfferTitle.setCustomValidity(`Удалите лишние ${  valueLength - MAX_TITLE_LENGTH } симв.`);
+      offerTitle.setCustomValidity(`Удалите лишние ${  valueLength - MAX_TITLE_LENGTH } симв.`);
     } else {
-      onOfferTitle.setCustomValidity('');
+      offerTitle.setCustomValidity('');
     }
 
-    onOfferTitle.reportValidity();
+    offerTitle.reportValidity();
   });
 
 
   const changeDependedValues = () => {
     for (const item of types) {
-      if (onOfferCost.value < item.minCost && item.type === onOfferType.value) {
-        onOfferCost.setCustomValidity(`Минимальная цена за ночь ${item.minCost}`);
-        onOfferCost.setAttribute('placeholder', `от ${item.minCost}`);
+      if (offerCost.value < item.minCost && item.type === offerType.value) {
+        offerCost.setCustomValidity(`Минимальная цена за ночь ${item.minCost}`);
+        offerCost.setAttribute('placeholder', `от ${item.minCost}`);
         break;
-      } else if (item.type === onOfferType.value) {
-        onOfferCost.setAttribute('placeholder', `от ${item.minCost}`);
-        onOfferCost.setCustomValidity('');
+      } else if (item.type === offerType.value) {
+        offerCost.setAttribute('placeholder', `от ${item.minCost}`);
+        offerCost.setCustomValidity('');
       }
     }
   };
 
-  const changeDependedFields = () => {
-    for (const item of capacities) {
-      if ((onOfferRoomNumber.value === item.room && onGuestQuantity.value === item.guests) || (onGuestQuantity.value === 0 && onOfferRoomNumber.value === 100)) {
-        onGuestQuantity.setCustomValidity('');
-        onOfferRoomNumber.setCustomValidity('');
-        break;
-      } else if (onGuestQuantity.value === item.guests) {
-        onGuestQuantity.setCustomValidity(`${onOfferRoomNumber.value} комната(ы) не для ${item.guests} гостя(ей)`);
-      }
-    }
-  };
-
-  // onOfferType.addEventListener('input', () => {
-  //   changeDependedValues();
-  //   onOfferCost.reportValidity();
-  // });
-
-
-  // onOfferType.addEventListener('change', () => {
-  //   changeDependedValues();
-  //   onOfferType.reportValidity();
-  // });
-
-  const eventsValidity = [onOfferType, onOfferCost, onGuestQuantity, onOfferRoomNumber];
-  const eventsList = ['input', 'change'];
-
-  eventsValidity.forEach((eventValidity) => {
-    for (let i = 0; i < eventsList.length; i++) {
-      eventValidity.addEventListener(eventsList[i], () => {
-        changeDependedValues();
-        changeDependedFields();
-        eventValidity.reportValidity();
-      });
-    }
+  offerCost.addEventListener('input', () => {
+    changeDependedValues();
+    offerCost.reportValidity();
   });
 
 
-  // onGuestQuantity.addEventListener('change', () => {
-  //   changeDependedFields();
-  //   onGuestQuantity.reportValidity();
-  // });
+  offerType.addEventListener('change', () => {
+    changeDependedValues();
+    offerCost.reportValidity();
+  });
 
-  // onOfferRoomNumber.addEventListener('change', () => {
-  //   changeDependedFields();
-  //   onOfferRoomNumber.reportValidity();
-  // });
+  const changeDependedFields = () => {
+    for (const item of capacities) {
+      if ((offerRoomNumber.value === item.room && guestQuantity.value === item.guests) || (guestQuantity.value === 0 && offerRoomNumber.value === 100)) {
+        guestQuantity.setCustomValidity('');
+        offerRoomNumber.setCustomValidity('');
+        break;
+      } else if (guestQuantity.value === item.guests) {
+        guestQuantity.setCustomValidity(`${offerRoomNumber.value} комната(ы) не для ${item.guests} гостя(ей)`);
+      }
+    }
+  };
+
+
+  guestQuantity.addEventListener('change', () => {
+    changeDependedFields();
+    guestQuantity.reportValidity();
+  });
+
+  offerRoomNumber.addEventListener('change', () => {
+    changeDependedFields();
+    offerRoomNumber.reportValidity();
+  });
 
   const resetForm = document.querySelector('.ad-form__reset');
 
   resetForm.addEventListener('click', () => {
-    onOfferCost.setAttribute('placeholder', 'от 1000');
+    offerCost.setAttribute('placeholder', 'от 1000');
 
   });
 
