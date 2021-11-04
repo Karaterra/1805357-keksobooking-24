@@ -1,7 +1,7 @@
 import {createSimilarOffers} from './data/get-mock-data.js';
 import {getSimilarOfferElement} from './utils/get-similar-offer-elements.js';
-import {deactivateFormAndFilter} from './form/deactivate-form-and-filter.js';
-import {activateFormAndFilter} from './form/activate-form-and-filter.js';
+import {setNonActiveMode} from './form/set-non-active-mode.js';
+import {setActiveMode} from './form/set-active-mode.js';
 
 const MAX_OFFERS_QUANTITY = 1;
 
@@ -17,12 +17,16 @@ similarCards.forEach((similarCard) => {
 
 similarListElement.appendChild(similarListFragment);
 
-const formFields = document.querySelector('.ad-form');
-const filterFields = document.querySelector('.map__filters');
+const adForm = document.querySelector('.ad-form');
+const filterPanel = document.querySelector('.map__filters');
+const formFieldsets = adForm.querySelectorAll('fieldset');
+const filterFieldsets = filterPanel.querySelectorAll('fieldset');
+const filterSelects = filterPanel.querySelectorAll('select');
 document.addEventListener('DOMContentLoaded', () => {
-  deactivateFormAndFilter(formFields, filterFields);
+  setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 
 });
 document.addEventListener('click', () => {
-  activateFormAndFilter(formFields, filterFields);
+  setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 });
+
