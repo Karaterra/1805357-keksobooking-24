@@ -36,16 +36,14 @@ const validateForm = () => {
     }
   };
 
-  offerCost.addEventListener('input', () => {
+  const onOfferTypeAndCostChange = () => {
     changeDependedValues();
     offerCost.reportValidity();
-  });
+  };
 
+  offerType.addEventListener('change', onOfferTypeAndCostChange);
+  offerCost.addEventListener('input', onOfferTypeAndCostChange);
 
-  offerType.addEventListener('change', () => {
-    changeDependedValues();
-    offerCost.reportValidity();
-  });
 
   const changeDependedFields = () => {
     for (const item of capacities) {
@@ -59,16 +57,13 @@ const validateForm = () => {
     }
   };
 
-
-  guestQuantity.addEventListener('change', () => {
+  const onOfferGuestsAndRooms = () => {
     changeDependedFields();
     guestQuantity.reportValidity();
-  });
+  };
 
-  offerRoomNumber.addEventListener('change', () => {
-    changeDependedFields();
-    offerRoomNumber.reportValidity();
-  });
+  guestQuantity.addEventListener('change', onOfferGuestsAndRooms);
+  offerRoomNumber.addEventListener('change', onOfferGuestsAndRooms);
 
   const resetForm = document.querySelector('.ad-form__reset');
 
