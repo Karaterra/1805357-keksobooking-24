@@ -1,6 +1,5 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
 
-
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
   const offerType = document.getElementById('type');
