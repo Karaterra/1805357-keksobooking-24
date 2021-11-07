@@ -1,8 +1,8 @@
 // import {createSimilarOffers} from './data/get-mock-data.js';
 // import {getSimilarOfferElement} from './utils/get-similar-offer-elements.js';
 import {setNonActiveMode} from './form/set-non-active-mode.js';
-import {setActiveMode} from './form/set-active-mode.js';
-import {map, bestVar2} from './map/map-script.js';
+import {map} from './map/map-script.js';
+// import {setActiveMode} from './form/set-active-mode.js';
 
 // const MAX_OFFERS_QUANTITY = 1;
 
@@ -23,15 +23,18 @@ const filterPanel = document.querySelector('.map__filters');
 const formFieldsets = adForm.querySelectorAll('fieldset');
 const filterFieldsets = filterPanel.querySelectorAll('fieldset');
 const filterSelects = filterPanel.querySelectorAll('select');
-document.addEventListener('DOMContentLoaded', () => {
+adForm.addEventListener('load', () => {
   setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
+  console.log('Неактивно2');
 
 });
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Карта инициализирована2', bestVar2);
-  // if (bestVar2) {
-    console.log('Карта инициализирована3', bestVar2);
-    setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
-  // }
-});
+
+
+// map.addEventListener('load', () => {
+//   console.log('Карта инициализирована2');
+//   // if (bestVar2) {
+//   console.log('Карта инициализирована3');
+//   setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
+//   // }
+// });
 

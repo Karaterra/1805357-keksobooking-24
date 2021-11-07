@@ -1,4 +1,5 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
+import {map, mainPinMarker} from '../map/map-script.js';
 
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
@@ -68,6 +69,16 @@ const validateForm = () => {
 
   resetForm.addEventListener('click', () => {
     offerCost.setAttribute('placeholder', 'от 1000');
+    mainPinMarker.setLatLng({
+      lat: 35.6895,
+      lng: 139.692,
+    });
+
+    map.setView({
+      lat: 35.6895,
+      lng: 139.692,
+    }, 16);
+
 
   });
 
