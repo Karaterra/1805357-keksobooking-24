@@ -1,7 +1,7 @@
 // import {createSimilarOffers} from './data/get-mock-data.js';
 // import {getSimilarOfferElement} from './utils/get-similar-offer-elements.js';
-import {setNonActiveMode} from './form/set-non-active-mode.js';
-import {map} from './map/map-script.js';
+
+import {createSimilarPins, initMap} from './map/map-script.js';
 // import {setActiveMode} from './form/set-active-mode.js';
 
 // const MAX_OFFERS_QUANTITY = 1;
@@ -18,17 +18,11 @@ import {map} from './map/map-script.js';
 
 // similarListElement.appendChild(similarListFragment);
 
-const adForm = document.querySelector('.ad-form');
-const filterPanel = document.querySelector('.map__filters');
-const formFieldsets = adForm.querySelectorAll('fieldset');
-const filterFieldsets = filterPanel.querySelectorAll('fieldset');
-const filterSelects = filterPanel.querySelectorAll('select');
-adForm.addEventListener('load', () => {
-  setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
-  console.log('Неактивно2');
-
-});
-
+// const adForm = document.querySelector('.ad-form');
+// const filterPanel = document.querySelector('.map__filters');
+// const formFieldsets = adForm.querySelectorAll('fieldset');
+// const filterFieldsets = filterPanel.querySelectorAll('fieldset');
+// const filterSelects = filterPanel.querySelectorAll('select');
 
 // map.addEventListener('load', () => {
 //   console.log('Карта инициализирована2');
@@ -37,4 +31,5 @@ adForm.addEventListener('load', () => {
 //   setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 //   // }
 // });
-
+initMap();
+createSimilarPins();
