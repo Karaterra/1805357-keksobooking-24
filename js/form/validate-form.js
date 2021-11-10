@@ -1,5 +1,5 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
-
+import {resetMap} from '../map/map-script.js';
 
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
@@ -69,6 +69,7 @@ const validateForm = () => {
 
   resetForm.addEventListener('click', () => {
     offerCost.setAttribute('placeholder', 'от 1000');
+    resetMap();
 
   });
 
