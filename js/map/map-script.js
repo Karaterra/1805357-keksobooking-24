@@ -13,7 +13,7 @@ const map = L.map('map');
 const similarOffersMarkersLayer = L.layerGroup().addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: '/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -39,7 +39,7 @@ mainPinMarker.on('moveend', (evt) => {
 mainPinMarker.addTo(map);
 
 const similarPinIcon = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: '/img/pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
