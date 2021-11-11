@@ -1,5 +1,6 @@
 import {getSimilarOfferElement} from '../utils/get-similar-offer-elements.js';
 import {setActiveMode} from '../form/set-active-mode.js';
+// import { createLoader } from '../api/api.js';
 
 const offerAddress = document.getElementById('address');
 const adForm = document.querySelector('.ad-form');
