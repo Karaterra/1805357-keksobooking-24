@@ -1,5 +1,7 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
 import {resetMap} from '../map/map-script.js';
+import {showAlert} from '../utils/alert.js';
+import {sendData} from '../api/api.js';
 
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
@@ -75,4 +77,20 @@ const validateForm = () => {
 
 };
 
-export {validateForm};
+const submitForm = document.querySelector('.ad-form__submit');
+
+const setUserFormSubmit = (onSuccess) => {
+  submitForm.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
+
+  });
+
+};
+
+export {validateForm, setUserFormSubmit};

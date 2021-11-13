@@ -1,6 +1,5 @@
 import {getSimilarOfferElement} from '../utils/get-similar-offer-elements.js';
 import {setActiveMode} from '../form/set-active-mode.js';
-// import { createLoader } from '../api/api.js';
 
 const offerAddress = document.getElementById('address');
 const adForm = document.querySelector('.ad-form');
@@ -14,7 +13,7 @@ const map = L.map('map');
 const similarOffersMarkersLayer = L.layerGroup().addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -40,8 +39,8 @@ mainPinMarker.on('moveend', (evt) => {
 mainPinMarker.addTo(map);
 
 const similarPinIcon = L.icon({
-  iconUrl: '../img/pin.svg',
-  iconSize: [52, 52],
+  iconUrl: 'img/pin.svg',
+  iconSize: [40, 40],
   iconAnchor: [26, 52],
 });
 
@@ -73,10 +72,10 @@ const setMainPinMarkerCoordinates = (lat, lng) => {
   });
 };
 
-const renderSimilarCards = (similarCards) => {
+const renderSimilarCards = (similarOfferCards) => {
   similarOffersMarkersLayer.clearLayers();
-  similarCards.forEach((point) => {
-    const {locationCoords: {lat, lng}} = point;
+  similarOfferCards.forEach((point) => {
+    const {location: {lat, lng}} = point;
 
     const marker = L.marker({
       lat,
@@ -92,7 +91,7 @@ const renderSimilarCards = (similarCards) => {
   });
 };
 
-const initMap = (similarCards) => {
+const initMap = (similarOfferCards) => {
   map.on ('load', () => {
     setActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
   });
@@ -111,7 +110,7 @@ const initMap = (similarCards) => {
     },
   ).addTo(map);
 
-  renderSimilarCards(similarCards);
+  renderSimilarCards(similarOfferCards);
 
 };
 
