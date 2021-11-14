@@ -118,6 +118,7 @@ const resetMap = () => {
   setMapView (initCoordinates.lat, initCoordinates.lng, initCoordinates.zoom);
   setMainPinMarkerCoordinates(initCoordinates.lat, initCoordinates.lng);
   map.closePopup();
+  adForm.reset();
 };
 
 export {initMap, resetMap, renderSimilarCards};

@@ -20,4 +20,21 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {showAlert};
+const showSuccess = (condition) => {
+  const conditionElement = document.querySelector(`#${condition}`).content.querySelector(`.${condition}`);
+  const whereAppendElement = document.querySelector('body');
+  const showElement = conditionElement.cloneNode(true);
+  if (condition) {
+    showElement.classList.remove('visually-hidden');
+  } else {
+    showElement.classList.add('visually-hidden');
+  }
+  whereAppendElement.append(showElement);
+
+  document.addEventListener('click', () => {
+    showElement.classList.add('visually-hidden');
+  });
+  return showElement;
+};
+
+export {showAlert, showSuccess};

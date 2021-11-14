@@ -3,10 +3,11 @@ import {resetMap} from '../map/map-script.js';
 import {showAlert} from '../utils/alert.js';
 import {sendData} from '../api/api.js';
 
+const offerCost = document.getElementById('price');
+
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
   const offerType = document.getElementById('type');
-  const offerCost = document.getElementById('price');
   const offerRoomNumber = document.getElementById('room_number');
   const guestQuantity = document.getElementById('capacity');
 
@@ -66,29 +67,24 @@ const validateForm = () => {
 
   guestQuantity.addEventListener('change', onOfferGuestsAndRooms);
   offerRoomNumber.addEventListener('change', onOfferGuestsAndRooms);
-
-  const resetForm = document.querySelector('.ad-form__reset');
-
-  resetForm.addEventListener('click', () => {
-    offerCost.setAttribute('placeholder', 'от 1000');
-    resetMap();
-
-  });
-
 };
 
-const submitForm = document.querySelector('.ad-form__submit');
 
 const setUserFormSubmit = (onSuccess) => {
-  submitForm.addEventListener('click', (evt) => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
       () => onSuccess(),
       () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
-      new FormData(evt.target),
+      new FormData(adForm),
     );
+  });
 
+  adForm.addEventListener('reset', () => {
+    offerCost.setAttribute('placeholder', 'от 1000');
+    resetMap();
   });
 
 };

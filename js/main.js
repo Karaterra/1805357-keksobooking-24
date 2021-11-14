@@ -1,6 +1,6 @@
 import {setNonActiveMode} from './form/set-non-active-mode.js';
-import {initMap, renderSimilarCards, resetMap} from './map/map-script.js';
-import {setUserFormSubmit} from './form/validate-form.js';
+import {initMap, renderSimilarCards} from './map/map-script.js';
+import {setUserFormSubmit, validateForm} from './form/validate-form.js';
 
 import {getData} from './api/api.js';
 
@@ -20,4 +20,4 @@ getData((dataCards) => {
 });
 
 
-setUserFormSubmit(resetMap);
+setUserFormSubmit(validateForm);
