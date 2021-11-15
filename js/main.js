@@ -1,8 +1,8 @@
 import {setNonActiveMode} from './form/set-non-active-mode.js';
 import {initMap, renderSimilarCards} from './map/map-script.js';
-import {setUserFormSubmit, validateForm} from './form/validate-form.js';
-
+import {setUserFormSubmit} from './form/validate-form.js';
 import {getData} from './api/api.js';
+import {confirmPopUp} from './utils/alert.js';
 
 const MAX_OFFERS_QUANTITY = 10;
 
@@ -20,4 +20,4 @@ getData((dataCards) => {
 });
 
 
-setUserFormSubmit(validateForm);
+setUserFormSubmit(confirmPopUp);

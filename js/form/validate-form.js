@@ -1,6 +1,5 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
 import {resetMap} from '../map/map-script.js';
-import {showAlert} from '../utils/alert.js';
 import {sendData} from '../api/api.js';
 
 const offerCost = document.getElementById('price');
@@ -70,16 +69,18 @@ const validateForm = () => {
 };
 
 
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (confirmPopUp) => {
   const adForm = document.querySelector('.ad-form');
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      () => confirmPopUp('success'),
+      () => confirmPopUp('error'),
       new FormData(adForm),
     );
+    adForm.reset();
+    resetMap();
   });
 
   adForm.addEventListener('reset', () => {

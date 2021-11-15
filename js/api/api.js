@@ -1,5 +1,4 @@
-import {showSuccess} from '../utils/alert.js';
-import {resetMap} from '../map/map-script.js';
+import {showAlert} from '../utils/alert.js';
 
 const getData = (onSuccess) => {
   fetch(
@@ -9,9 +8,18 @@ const getData = (onSuccess) => {
       credentials: 'same-origin',
     },
   )
-    .then((response) => response.json())
-    .then((dataCards) => {
-      onSuccess(dataCards);
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error(`Данные не загружены! ${response.status} ${response.statusText}`);
+    })
+    .then((dataCard) => {
+      onSuccess(dataCard);
+    })
+    .catch((err) => {
+      showAlert(err);
     });
 
 };
@@ -28,16 +36,12 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        showSuccess('success');
-        resetMap();
       } else {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');
-        showSuccess('error');
       }
     })
     .catch(() => {
       onFail('Не удалось отправить форму. Попробуйте ещё раз');
-      showSuccess('error');
     });
 };
 

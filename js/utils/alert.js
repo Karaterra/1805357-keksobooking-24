@@ -1,3 +1,5 @@
+import {isEscapeKey} from '../utils/user-modal.js';
+
 const ALERT_SHOW_TIME = 5000;
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -20,21 +22,36 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const showSuccess = (condition) => {
+const confirmPopUp = (condition) => {
   const conditionElement = document.querySelector(`#${condition}`).content.querySelector(`.${condition}`);
-  const whereAppendElement = document.querySelector('body');
+  const containerBody = document.querySelector('body');
   const showElement = conditionElement.cloneNode(true);
-  if (condition) {
-    showElement.classList.remove('visually-hidden');
-  } else {
-    showElement.classList.add('visually-hidden');
-  }
-  whereAppendElement.append(showElement);
 
-  document.addEventListener('click', () => {
+  containerBody.append(showElement);
+
+  const onPopupEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closeUserModal();
+    }
+  };
+
+  showElement.classList.remove('visually-hidden');
+
+  document.addEventListener('keydown', onPopupEscKeydown);
+
+
+  function closeUserModal () {
     showElement.classList.add('visually-hidden');
+
+    document.removeEventListener('keydown', onPopupEscKeydown);
+  }
+
+  showElement.addEventListener('click', () => {
+    closeUserModal();
   });
+
   return showElement;
 };
 
-export {showAlert, showSuccess};
+export {showAlert, confirmPopUp};
