@@ -1,6 +1,8 @@
 import {setNonActiveMode} from './form/set-non-active-mode.js';
-import {initMap} from './map/map-script.js';
-import {createSimilarOffers} from './data/get-mock-data.js';
+import {initMap, renderSimilarCards} from './map/map-script.js';
+import {setUserFormSubmit} from './form/validate-form.js';
+import {getData} from './api/api.js';
+import {confirmPopUp} from './utils/alert.js';
 
 const MAX_OFFERS_QUANTITY = 10;
 
@@ -12,6 +14,10 @@ const filterSelects = filterPanel.querySelectorAll('select');
 
 setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 
-const similarCards = createSimilarOffers(MAX_OFFERS_QUANTITY);
+getData((dataCards) => {
+  initMap(dataCards);
+  renderSimilarCards(dataCards.slice(0, MAX_OFFERS_QUANTITY));
+});
 
-initMap(similarCards);
+
+setUserFormSubmit(confirmPopUp);

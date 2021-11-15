@@ -1,10 +1,12 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, types, capacities} from '../data/variables.js';
 import {resetMap} from '../map/map-script.js';
+import {sendData} from '../api/api.js';
+
+const offerCost = document.getElementById('price');
 
 const validateForm = () => {
   const offerTitle = document.getElementById('title');
   const offerType = document.getElementById('type');
-  const offerCost = document.getElementById('price');
   const offerRoomNumber = document.getElementById('room_number');
   const guestQuantity = document.getElementById('capacity');
 
@@ -64,15 +66,28 @@ const validateForm = () => {
 
   guestQuantity.addEventListener('change', onOfferGuestsAndRooms);
   offerRoomNumber.addEventListener('change', onOfferGuestsAndRooms);
+};
 
-  const resetForm = document.querySelector('.ad-form__reset');
 
-  resetForm.addEventListener('click', () => {
+const setUserFormSubmit = (confirmPopUp) => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => confirmPopUp('success'),
+      () => confirmPopUp('error'),
+      new FormData(adForm),
+    );
+    adForm.reset();
+    resetMap();
+  });
+
+  adForm.addEventListener('reset', () => {
     offerCost.setAttribute('placeholder', 'от 1000');
     resetMap();
-
   });
 
 };
 
-export {validateForm};
+export {validateForm, setUserFormSubmit};
