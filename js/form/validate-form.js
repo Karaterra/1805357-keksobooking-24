@@ -75,12 +75,14 @@ const setUserFormSubmit = (confirmPopUp) => {
     evt.preventDefault();
 
     sendData(
-      () => confirmPopUp('success'),
+      () => {
+        confirmPopUp('success');
+        adForm.reset();
+        resetMap();
+      },
       () => confirmPopUp('error'),
       new FormData(adForm),
     );
-    adForm.reset();
-    resetMap();
   });
 
   adForm.addEventListener('reset', () => {

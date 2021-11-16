@@ -3,8 +3,9 @@ import {initMap, renderSimilarCards} from './map/map-script.js';
 import {setUserFormSubmit} from './form/validate-form.js';
 import {getData} from './api/api.js';
 import {confirmPopUp} from './utils/alert.js';
+import {mapFilter} from './map/map-filter.js';
 
-const MAX_OFFERS_QUANTITY = 10;
+const MAX_OFFERS_QUANTITY = 100;
 
 const adForm = document.querySelector('.ad-form');
 const filterPanel = document.querySelector('.map__filters');
@@ -15,8 +16,9 @@ const filterSelects = filterPanel.querySelectorAll('select');
 setNonActiveMode(adForm, filterPanel, formFieldsets, filterFieldsets, filterSelects);
 
 getData((dataCards) => {
-  initMap(dataCards);
-  renderSimilarCards(dataCards.slice(0, MAX_OFFERS_QUANTITY));
+  const filterCards = mapFilter(dataCards, filterSelects);
+  initMap(filterCards);
+  renderSimilarCards(filterCards.slice(0, MAX_OFFERS_QUANTITY));
 });
 
 
